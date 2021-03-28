@@ -1,6 +1,11 @@
 package io.cuongtran.ppmt.domain;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+import com.sun.istack.NotNull;
 import lombok.Data;
+import org.hibernate.annotations.BatchSize;
+import org.springframework.boot.convert.DataSizeUnit;
+
 import javax.persistence.*;
 import java.util.Date;
 
@@ -9,14 +14,27 @@ import java.util.Date;
 public class Project {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue
     private Long id;
+
+    @NotNull
     private String projectName;
+
+    @NotNull
+    @Column(updatable = false,unique = true)
     private String projectIdentifier;
+
+    @NotNull
     private String description;
+
+    @JsonFormat(pattern = "yyyy-mm-dd")
     private Date start_date;
+    @JsonFormat(pattern = "yyyy-mm-dd")
     private Date end_date;
+
+    @JsonFormat(pattern = "yyyy-mm-dd")
     private Date created_At;
+    @JsonFormat(pattern = "yyyy-mm-dd")
     private Date updated_At;
 
     public Project(){
@@ -26,7 +44,7 @@ public class Project {
 
     @PrePersist
     protected void onCreate(){
-        this.created_At = new Date();
+        this.updated_At = new Date();
     }
 
     @PreUpdate
