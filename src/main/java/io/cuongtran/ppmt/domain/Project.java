@@ -21,7 +21,7 @@ public class Project {
     private String projectName;
 
     @NotNull
-    @Column(updatable = false,unique = true)
+    @Column(updatable = false, unique = true)
     private String projectIdentifier;
 
     @NotNull
